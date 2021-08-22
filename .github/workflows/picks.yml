@@ -1,4 +1,4 @@
-name: Update data
+name: Update picks
 on:
   workflow_dispatch:
     inputs:
@@ -7,7 +7,7 @@ on:
         required: true
         default: 1000
 jobs:
-  update-data:
+  update-picks:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
