@@ -9,7 +9,7 @@ on:
       saveFrequency:
         description: "Save frequency"
         required: true
-      default: 1000
+        default: 1000
 jobs:
   update-picks:
     runs-on: ubuntu-latest
