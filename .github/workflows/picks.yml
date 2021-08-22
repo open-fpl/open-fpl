@@ -1,39 +1,39 @@
-name: Update picks
-on:
-  workflow_dispatch:
-    inputs:
-      entriesLimit:
-        description: "Entries limit"
-        required: true
-        default: 10000
-      saveFrequency:
-        description: "Save frequency"
-        required: true
-        default: 1000
-jobs:
-  update-picks:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout latest commit
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
-      - name: Set up node
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14"
-          cache: "yarn"
-          cache-dependency-path: packages/data/yarn.lock
-      - name: Install packages
-        run: yarn
-        working-directory: packages/data
-      - name: Update data
-        run: yarn init-picks
-        working-directory: packages/data
-        env:
-          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          ENTRIES_LIMIT: ${{ github.event.inputs.entriesLimit }}
-          SAVE_FEQUENCY: ${{ github.event.inputs.saveFrequency }}
+# name: Update picks
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       entriesLimit:
+#         description: "Entries limit"
+#         required: true
+#         default: 10000
+#       saveFrequency:
+#         description: "Save frequency"
+#         required: true
+#         default: 1000
+# jobs:
+#   update-picks:
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 15
+#     steps:
+#       - name: Checkout latest commit
+#         uses: actions/checkout@v2
+#         with:
+#           ref: ${{ github.head_ref }}
+#           fetch-depth: 0
+#       - name: Set up node
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: "14"
+#           cache: "yarn"
+#           cache-dependency-path: packages/data/yarn.lock
+#       - name: Install packages
+#         run: yarn
+#         working-directory: packages/data
+#       - name: Update data
+#         run: yarn init-picks
+#         working-directory: packages/data
+#         env:
+#           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+#           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+#           ENTRIES_LIMIT: ${{ github.event.inputs.entriesLimit }}
+#           SAVE_FEQUENCY: ${{ github.event.inputs.saveFrequency }}

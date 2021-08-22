@@ -1,0 +1,29 @@
+name: Temp update data
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest commit
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - name: Set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install packages
+        run: yarn --cwd packages/data
+      - name: Trigger open-fpl-data redeploy
+        uses: satak/webrequest-action@master
+        with:
+          url: ${{ secrets.DEPLOY_DATA_HOOK }}
+          method: GET
