@@ -118,9 +118,7 @@ const strategies: StorageStrategies = {
   },
   supabase: {
     init: function () {
-      this.client = createClient(supabaseUrl!, supabaseSecretKey!, {
-        headers: {},
-      });
+      this.client = createClient(supabaseUrl!, supabaseSecretKey!);
     },
     saveRemoteData: async function (type: string, data: any) {
       const supabase = this.client as SupabaseClient;
