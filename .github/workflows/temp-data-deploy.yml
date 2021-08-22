@@ -1,7 +1,5 @@
 name: Temp update data
 on:
-  schedule:
-    - cron: "0 * * * *"
   workflow_dispatch:
 jobs:
   update-data:
